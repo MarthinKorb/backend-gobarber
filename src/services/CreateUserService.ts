@@ -2,6 +2,8 @@ import { getRepository } from 'typeorm';
 
 import { hash } from 'bcryptjs';
 
+import AppError from '../errors/AppErros';
+
 import User from '../models/User';
 
 interface RequestTDO {
@@ -19,7 +21,7 @@ class CreateUserService {
         });
 
         if (checkUserExists) {
-            throw new Error('Email adress already used.');
+            throw new AppError('Email adress already used.', 400);
         }
 
         const hashedPassword = await hash(password, 8);
