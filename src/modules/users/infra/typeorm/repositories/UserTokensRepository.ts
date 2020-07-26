@@ -11,11 +11,9 @@ class UserTokensRepository implements IUserTokensRepository {
         this.ormRepository = getRepository(UserToken);
     }
 
-    public async findUserByToken(
-        token: string,
-    ): Promise<UserToken | undefined> {
+    public async findByToken(token: string): Promise<UserToken | undefined> {
         const userToken = await this.ormRepository.findOne({
-            where: token,
+            where: { token },
         });
 
         return userToken;
